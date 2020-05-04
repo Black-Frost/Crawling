@@ -13,6 +13,6 @@ class CrawlerItem(scrapy.Item):
     Url = scrapy.Field()
     Genre = scrapy.Field()
     Year = scrapy.Field()
-    Summary = scrapy.Field()
     View = scrapy.Field()
     
+
