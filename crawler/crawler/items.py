@@ -14,4 +14,3 @@ class CrawlerItem(scrapy.Item):
     Genre = scrapy.Field()
     Year = scrapy.Field()
     
-

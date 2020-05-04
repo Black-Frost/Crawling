@@ -1,11 +1,14 @@
 from scrapy import Spider, Request
 from scrapy.selector import Selector
 from crawler.items import CrawlerItem
+import json
 
 class CrawlerSpider(Spider):
+    f = open('links.json')
+    films = json.load(f);
     name = 'crawler'
     allowed_domains = ["ani4u.org"]
-    start_urls = []
+    start_urls = [i['Url'] for i in films]
     
     def parse(self, response):
         lists = Selector(response).xpath('//div[@class="data"]')
