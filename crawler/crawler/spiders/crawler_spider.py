@@ -13,10 +13,11 @@ class CrawlerSpider(Spider):
         for anime in lists:
             item = CrawlerItem()
             item['Name'] = anime.xpath('h1/text()').extract_first()
-            item['Url'] = self.start_urls[self.i]
-            self.i+=1
             genre_list = anime.xpath('p[2]/a[1]/text()').extract_first()
             item['Genre'] = ', '.join(genre_list)
+            item['Year'] = anime.xpath('p[4]/a[2]/text()').extract_first()
+            item['View'] = anime.xpath('p[7]/text()').extract_first()
+            item['Url'] = anime.xpath('a/@href/text()').extract_first()
             #item['Time'] = anime.xpath(
             #    'div[@class="actionuser"]/a[@class="time"]/text()').extract_first()
             yield item
