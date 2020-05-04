@@ -4,11 +4,15 @@ from crawler.items import CrawlerItem
 import json
 
 class CrawlerSpider(Spider):
-    f = open('links.json')
-    films = json.load(f);
     name = 'crawler'
     allowed_domains = ["ani4u.org"]
-    start_urls = [i['Url'] for i in films]
+    def follow_urls(self):
+        urls = ["http://ani4u.org/list-anime"]
+        for url in urls:
+            yield scrapy.Request(url=url, callback=self.follow)
+    def follow(self, respond):
+        
+        
     
     def parse(self, response):
         lists = Selector(response).xpath('//div[@class="data"]')
