@@ -6,13 +6,18 @@ import json
 class CrawlerSpider(Spider):
     name = 'crawler'
     allowed_domains = ["ani4u.org"]
-    def follow_urls(self):
+   
+
+    def start_requests(self):
         urls = ["http://ani4u.org/list-anime"]
         for url in urls:
-            yield scrapy.Request(url=url, callback=self.follow)
-    def follow(self, respond):
-        
-        
+            yield Request(url = url, callback = self.follow)
+    
+    def follow(self, response):
+        animes= response.xpath('/html/body/div[4]/div[1]/div/div/div[1]/div/ul/li')
+        for i in range(len(animes)):
+            link = animes[i].xpath('a/@href').extract_first()
+            yield Request(url = link, callback = self.parse)
     
     def parse(self, response):
         lists = Selector(response).xpath('//div[@class="data"]')
