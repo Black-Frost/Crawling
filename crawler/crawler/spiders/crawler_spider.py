@@ -21,7 +21,7 @@ class CrawlerSpider(Spider):
         lists = Selector(response).xpath('//div[@class="data"]')
         for anime in lists:
             item = CrawlerItem()
-            item['Name'] = json.dumps(anime.xpath('h1/text()').get())
+            item['Name'] = anime.xpath('h1/text()').get()
             genre_list = anime.xpath('p[2]/a/text()').getall()
             item['Genre'] = ', '.join(genre_list[1:])
             item['Year'] = anime.xpath('p[4]/a[2]/text()').get() if len(anime.xpath('p[4]/a')) > 1 else anime.xpath('p[4]/a/text()').get()
